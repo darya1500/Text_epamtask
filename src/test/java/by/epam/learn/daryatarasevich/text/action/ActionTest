@@ -1,0 +1,56 @@
+package by.epam.learn.daryatarasevich.text.action;
+
+import by.epam.learn.daryatarasevich.text.comparator.ByLengthOfWordsInSentenceComparator;
+import by.epam.learn.daryatarasevich.text.comparator.ByNumberOFSentencesComparator;
+import by.epam.learn.daryatarasevich.text.comparator.ByNumberOfWordsInSentencesComparator;
+import by.epam.learn.daryatarasevich.text.entity.*;
+import by.epam.learn.daryatarasevich.text.exception.IllegalComparatorException;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+import java.util.ArrayList;
+import java.util.List;
+import static org.testng.Assert.*;
+
+public class ActionTest {
+    private Action action;
+    private Text text;
+    private Paragraph paragraph;
+    private Sentence sentence;
+    private List<Paragraph> expectedParagraphList;
+    private List<Sentence> expectedSentenceList;
+    private List<Word> expectedWordList;
+    private ByNumberOFSentencesComparator byNumberOFSentencesComparator;
+    private ByNumberOfWordsInSentencesComparator byNumberOfWordsInSentencesComparator;
+    private ByLengthOfWordsInSentenceComparator byLengthOfWordsInSentenceComparator;
+
+    @BeforeMethod
+    public void setUp() {
+        text=new Text("hi", TypeComposite.TEXT);
+        byNumberOFSentencesComparator=new ByNumberOFSentencesComparator();
+        expectedParagraphList=new ArrayList<>();
+        byNumberOfWordsInSentencesComparator=new ByNumberOfWordsInSentencesComparator();
+        paragraph=new Paragraph("r.",TypeComposite.PARAGRAPH);
+        expectedSentenceList=new ArrayList<>();
+        sentence=new Sentence("",TypeComposite.SENTENCE);
+        byLengthOfWordsInSentenceComparator=new ByLengthOfWordsInSentenceComparator();
+        expectedSentenceList=new ArrayList<>();
+    }
+
+    @Test
+    public void testSortParagraphs_WhenDataIsCorrect_ShouldReturnCorrectResult() throws IllegalComparatorException {
+        action=new Action();
+        assertEquals(action.sortParagraphs(text,byNumberOFSentencesComparator),expectedParagraphList);
+    }
+
+    @Test
+    public void testSortSentences_WhenDataIsCorrect_ShouldReturnCorrectResult() throws IllegalComparatorException {
+        action=new Action();
+        assertEquals(action.sortSentences(paragraph,byNumberOfWordsInSentencesComparator),expectedSentenceList);
+    }
+
+    @Test
+    public void testSortWords_WhenDataIsCorrect_ShouldReturnCorrectResult() throws IllegalComparatorException {
+        action=new Action();
+        assertEquals(action.sortWords(sentence,byLengthOfWordsInSentenceComparator),expectedParagraphList);
+    }
+}

@@ -1,0 +1,23 @@
+package by.epam.learn.daryatarasevich.text.parser;
+
+import by.epam.learn.daryatarasevich.text.entity.Component;
+import java.util.List;
+
+public abstract class Parser {
+    private Parser nextParser;
+
+    public Parser getNext(){
+     return nextParser;
+    }
+
+    public void setNext(Parser nextParser) {
+        this.nextParser=nextParser;
+    }
+
+    /**
+     * Abstract method to parse string into its components.
+     *
+     */
+
+    public abstract List<Component> parse(String string);
+}

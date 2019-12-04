@@ -1,0 +1,33 @@
+package by.epam.learn.daryatarasevich.text.comparator;
+
+import by.epam.learn.daryatarasevich.text.constant.MessageConstants;
+import by.epam.learn.daryatarasevich.text.entity.Component;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import java.util.Comparator;
+
+public class ByNumberOfWordsInSentencesComparator implements Comparator<Component> {
+    private static final Logger LOGGER = LogManager.getLogger(ByNumberOfWordsInSentencesComparator.class);
+    /**
+     * Compares 2 sentences by count of lexemas it consist of.
+     *
+     * @param sentenceOne -to compare by count of lexemas it consist of
+     * @param sentenceTwo -to compare by count of lexemas it consist of
+     */
+    @Override
+    public int compare(Component sentenceOne, Component sentenceTwo) {
+        if (sentenceOne==null||sentenceTwo==null){
+            LOGGER.error(MessageConstants.SENTENCE_IS_NULL);
+            throw new NullPointerException(MessageConstants.SENTENCE_IS_NULL);
+        }
+        int one=sentenceOne.count();
+        int two=sentenceTwo.count();
+        if (one==two){
+            return 0;
+        }else if(one<two){
+            return -1;
+        }else {
+            return 1;
+        }
+    }
+}

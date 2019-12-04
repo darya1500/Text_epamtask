@@ -1,0 +1,10 @@
+package by.epam.learn.daryatarasevich.text.entity;
+
+public enum TypeComposite {
+    LEXEMA,
+    PARAGRAPH,
+    SENTENCE,
+    SYMBOL,
+    TEXT,
+    WORD,
+}

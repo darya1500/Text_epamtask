@@ -1,0 +1,75 @@
+package by.epam.learn.daryatarasevich.text.parser;
+
+import by.epam.learn.daryatarasevich.text.constant.MessageConstants;
+import by.epam.learn.daryatarasevich.text.entity.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class WordParser extends LexemaParser {
+    private final String CONSTANT="\\w*";
+    private static final WordParser INSTANCE=new WordParser();
+    private Parser nextParser=SymbolParser.getInstance();
+     private static final Logger LOGGER = LogManager.getLogger(WordParser.class);
+
+    public WordParser() {
+    }
+
+    public static WordParser getInstance(){
+        return INSTANCE;
+    }
+    /**
+     * To parse string to the list of components.
+     * String is checked if it matches regex=CONSTANT.
+     * Words are created from strings matching word-forming symbols.
+     * Symbols are created from string parts matching non-word-forming symbols.
+     * All words and symbols are added to the list of components.
+     *
+     * @param string -string to parse
+     * @return list - list of all created components
+     */
+    @Override
+    public List<Component> parse(String string) {
+        if (string == null) {
+              LOGGER.error(MessageConstants.STRING_IS_NULL);
+            throw new NullPointerException(MessageConstants.STRING_IS_NULL);
+        }
+        List<Component> list=new ArrayList<>();
+        Pattern p=Pattern.compile(CONSTANT);
+        Matcher m=p.matcher(string);
+        Component component=null;
+        Component componentX=null;
+        if (p.matches(CONSTANT,string)){
+            if (nextParser!=null){
+                component=new Composite(nextParser.parse(string), TypeComposite.WORD);
+            }else {
+                component=new Composite(string, TypeComposite.WORD);
+            }
+        } else {
+            if (nextParser!=null) {
+                char[] chars = string.toCharArray();
+                String stringTwo = "";
+                for (int i = 0; i < chars.length; i++) {
+                    if (p.matches(CONSTANT, String.valueOf(chars[i]))) {
+                        stringTwo = stringTwo + chars[i];
+                    } else {
+                      componentX= new Symbol(String.valueOf(chars[i]), TypeComposite.SYMBOL);
+                    }
+                    if (i==chars.length-1){
+                        component = new Composite(nextParser.parse(stringTwo), TypeComposite.WORD);
+                    }
+                }
+            }else{
+                component=new Composite(string, TypeComposite.WORD);
+            }
+       }
+        list.add(component);
+       if (componentX!=null){
+           list.add(componentX);
+       }
+       return  list;
+    }
+}

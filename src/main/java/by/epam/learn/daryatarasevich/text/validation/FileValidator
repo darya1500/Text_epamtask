@@ -1,0 +1,25 @@
+package by.epam.learn.daryatarasevich.text.validation;
+
+import java.io.File;
+
+public class FileValidator {
+
+    public FileValidator() {
+    }
+
+    /**
+     * Validate that file exists.
+     *
+     * @param fileName
+     * @return true(if file exists)
+     *
+     * @author Darya Tarasevich
+     */
+    public boolean doesFileExist(String fileName){
+        if (fileName != null && new File(fileName).exists()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}

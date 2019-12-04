@@ -1,0 +1,44 @@
+package by.epam.learn.daryatarasevich.text.parser;
+
+import by.epam.learn.daryatarasevich.text.constant.MessageConstants;
+import by.epam.learn.daryatarasevich.text.entity.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import java.util.ArrayList;
+import java.util.List;
+
+public class SymbolParser extends WordParser {
+    private static final SymbolParser INSTANCE=new SymbolParser();
+    private static final Logger LOGGER = LogManager.getLogger(SymbolParser.class);
+
+    public SymbolParser() {
+    }
+    public static SymbolParser getInstance(){
+        return INSTANCE;
+    }
+
+    /**
+     * To parse string to the list of components.
+     * String is parsed char[] chars by converting all to charArray.
+     *New symbol is created via (String.valueOf(chars[i]), TypeComposite.SYMBOL) constructor.
+     *All composites are added to the list of components.
+     *
+     * @param string -string to parse
+     * @return list - list of all created symbols
+     */
+    @Override
+    public List<Component> parse(String string) {
+        if (string == null) {
+               LOGGER.error(MessageConstants.STRING_IS_NULL);
+            throw new NullPointerException(MessageConstants.STRING_IS_NULL);
+        }
+        List<Component> list=new ArrayList<>();
+        char[] chars=string.toCharArray();
+        Component symbol;
+        for (int i=0;i<chars.length;i++){
+            symbol=new Symbol(String.valueOf(chars[i]), TypeComposite.SYMBOL);
+            list.add(symbol);
+        }
+        return list;
+    }
+}

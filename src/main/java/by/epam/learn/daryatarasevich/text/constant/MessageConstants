@@ -1,0 +1,15 @@
+package by.epam.learn.daryatarasevich.text.constant;
+
+public class MessageConstants {
+    public static final String FILE_NAME_IS_INCORRECT = "File name is incorrect";
+    public static final String FILEPATH_IS_NULL="Filepath is null";
+    public static final String INCORRECT_PARSER_EXCEPTION ="Incorrect parser exception" ;
+    public static final String COMPARATOR_IS_NULL ="Comparator is null" ;
+    public static final String PARAGRAPH_IS_NULL = "Paragraph is null";
+    public static final String SENTENCE_IS_NULL ="Sentence is null" ;
+    public static final String WORD_IS_NULL = "Word is null";
+    public static final String TEXT_IS_NULL ="Text is null" ;
+    public static final String ILLEGAL_COMPARATOR = "Illegal comparator";
+    public static final String ILLEGAL_COMPONENT = "Illegal component";
+    public static final String STRING_IS_NULL ="String is null" ;
+}

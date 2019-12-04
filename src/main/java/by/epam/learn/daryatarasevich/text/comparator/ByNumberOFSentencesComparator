@@ -1,0 +1,33 @@
+package by.epam.learn.daryatarasevich.text.comparator;
+
+import by.epam.learn.daryatarasevich.text.constant.MessageConstants;
+import by.epam.learn.daryatarasevich.text.entity.Component;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import java.util.Comparator;
+
+public class ByNumberOFSentencesComparator implements Comparator<Component> {
+   private static final Logger LOGGER = LogManager.getLogger(ByNumberOFSentencesComparator.class);
+    /**
+     * Compares 2 paragraphs by count of sentences it consist of.
+     *
+     * @param paragraphOne -to compare by count of sentences it consist of
+     * @param paragraphTwo -to compare by count of sentences it consist of
+     */
+    @Override
+    public int compare(Component paragraphOne, Component paragraphTwo) {
+        if (paragraphOne==null||paragraphTwo==null){
+            LOGGER.error(MessageConstants.PARAGRAPH_IS_NULL);
+            throw new NullPointerException(MessageConstants.PARAGRAPH_IS_NULL);
+        }
+        int one=paragraphOne.count();
+        int two=paragraphTwo.count();
+        if (one==two){
+            return 0;
+        }else if(one<two){
+            return -1;
+        }else {
+            return 1;
+        }
+    }
+}

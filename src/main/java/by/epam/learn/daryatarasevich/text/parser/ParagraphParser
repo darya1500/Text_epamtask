@@ -1,0 +1,51 @@
+package by.epam.learn.daryatarasevich.text.parser;
+
+import by.epam.learn.daryatarasevich.text.constant.MessageConstants;
+import by.epam.learn.daryatarasevich.text.entity.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ParagraphParser extends Parser {
+    private final String CONSTANT = "[\\n\\t]";
+    private static final ParagraphParser INSTANCE=new ParagraphParser();
+    private Parser nextParser=SentenceParser.getInstance();
+    private static final Logger LOGGER = LogManager.getLogger(ParagraphParser.class);
+
+   ParagraphParser() {
+    }
+
+    public static ParagraphParser getInstance(){
+        return INSTANCE;
+    }
+    /**
+     * To parse string to the list of components.
+     * String is parsed to String[] paragraphs by splitting via regex=CONSTANT.
+     * If nextParser is present new composite is created via (nextParser.parse(s),TypeComposite.PARAGRAPH)
+     * constructor, if nextParser is absent new composite is created via (s,TypeComposite.PARAGRAPH) constructor.
+     *All composites are added to the list of components.
+     *
+     * @param string -string to parse
+     * @return listOfComponents - list of all created components
+     */
+    @Override
+    public List<Component> parse(String string) {
+        if (string == null) {
+              LOGGER.error(MessageConstants.STRING_IS_NULL);
+            throw new NullPointerException(MessageConstants.STRING_IS_NULL);
+        }
+        List<Component> listOfComponents=new ArrayList<>();
+        String[] paragraphs=string.split(CONSTANT);
+        for (String s:paragraphs){
+            Component component;
+        if (nextParser!=null){
+            component=new Composite(nextParser.parse(s),TypeComposite.PARAGRAPH);
+        }else {
+            component=new Composite(s,TypeComposite.PARAGRAPH);
+        }
+            listOfComponents.add(component);
+        }
+        return listOfComponents;
+    }
+}

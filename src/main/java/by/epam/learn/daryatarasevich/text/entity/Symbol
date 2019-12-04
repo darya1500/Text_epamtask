@@ -1,0 +1,42 @@
+package by.epam.learn.daryatarasevich.text.entity;
+
+   //Leaf
+public class Symbol implements Component {
+    private TypeComposite type;
+    private String value;
+
+    public Symbol(String value,TypeComposite type) {
+        this.type=type;
+        this.value=value;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    @Override
+    public TypeComposite getType() {
+        return type;
+    }
+
+    public Component add(Component component) {
+        throw new UnsupportedOperationException();
+    }
+
+    public boolean remove(Component component) {
+        throw new UnsupportedOperationException();
+    }
+
+    public Component get(int childIndex) {
+        throw new UnsupportedOperationException();
+    }
+
+    public int count() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String toString() {
+        return value;
+    }
+}

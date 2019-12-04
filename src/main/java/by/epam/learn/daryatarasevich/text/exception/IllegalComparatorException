@@ -1,0 +1,7 @@
+package by.epam.learn.daryatarasevich.text.exception;
+
+public class IllegalComparatorException extends Exception {
+    public IllegalComparatorException(String message) {
+        super(message);
+    }
+}

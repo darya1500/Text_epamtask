@@ -1,0 +1,57 @@
+package by.epam.learn.daryatarasevich.text.recomposition;
+
+import by.epam.learn.daryatarasevich.text.constant.MessageConstants;
+import by.epam.learn.daryatarasevich.text.entity.Component;
+import by.epam.learn.daryatarasevich.text.entity.Symbol;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import java.util.List;
+
+public class CompleteRecompositor implements Recompositor{
+    private static final Logger LOGGER = LogManager.getLogger(CompleteRecompositor.class);
+
+    public CompleteRecompositor() {
+    }
+    /**
+     * To recomposite string from the list of components.
+     * Depending on the type of component in the list different logic
+     * is used to recomposite it.
+     *
+     * @param list -list of components to recomposite
+     * @return string - string as original text
+     */
+    @Override
+    public String recomposite(List<Component> list) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Component component : list) {
+            switch (component.getType()) {
+                case TEXT:
+                    stringBuilder.append(component.toString());
+                    break;
+                case PARAGRAPH:
+                    if (list.indexOf(component) != list.size()-1) {
+                        stringBuilder.append("    ".concat(component.toString().concat("\n")));
+                    } else {
+                        stringBuilder.append("    ".concat(component.toString()));
+                    }
+                    break;
+                case SENTENCE:
+                    stringBuilder.append(component.toString()+".");
+                    break;
+                case LEXEMA:
+                    stringBuilder.append(component.toString().concat(" "));
+                    break;
+                case WORD:
+                    stringBuilder.append(component.toString());
+                    break;
+                case SYMBOL:
+                    Symbol symbol=(Symbol) component;
+                    stringBuilder.append(symbol.getValue());
+                    break;
+                default:
+                    LOGGER.error(MessageConstants.ILLEGAL_COMPONENT);
+            }
+        }
+        return stringBuilder.toString();
+    }
+}

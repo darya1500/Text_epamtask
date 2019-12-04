@@ -1,0 +1,105 @@
+package by.epam.learn.daryatarasevich.text.action;
+
+import by.epam.learn.daryatarasevich.text.comparator.ByLengthOfWordsInSentenceComparator;
+import by.epam.learn.daryatarasevich.text.comparator.ByNumberOFSentencesComparator;
+import by.epam.learn.daryatarasevich.text.comparator.ByNumberOfWordsInSentencesComparator;
+import by.epam.learn.daryatarasevich.text.constant.MessageConstants;
+import by.epam.learn.daryatarasevich.text.entity.*;
+import by.epam.learn.daryatarasevich.text.exception.IllegalComparatorException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
+public class Action {
+    private static final Logger LOGGER = LogManager.getLogger(Action.class);
+
+    public Action() {
+    }
+    /**
+     * To sort text by comparator.
+     *
+     * @param text -text to sort
+     * @param comparator -to compare by (should be ByNumberOFSentencesComparator)
+     */
+    public List<Paragraph> sortParagraphs(Text text,Comparator<Component> comparator) throws IllegalComparatorException {
+       if (comparator == null) {
+              LOGGER.error(MessageConstants.COMPARATOR_IS_NULL);
+            throw new NullPointerException(MessageConstants.COMPARATOR_IS_NULL);
+        }
+        if (text==null) {
+           LOGGER.error(MessageConstants.TEXT_IS_NULL);
+            throw new NullPointerException(MessageConstants.TEXT_IS_NULL);
+        }
+        if (!(comparator instanceof ByNumberOFSentencesComparator)){
+           LOGGER.error(MessageConstants.ILLEGAL_COMPARATOR);
+            throw new IllegalComparatorException(MessageConstants.ILLEGAL_COMPARATOR);
+        }
+        List<Component> componentList=text.getComponents();
+        List<Paragraph> paragraphList=new ArrayList<>();
+        for (Component c:componentList){
+            Paragraph p=new Paragraph(c.toString(),TypeComposite.PARAGRAPH);
+            paragraphList.add(p);
+        }
+        paragraphList.sort(comparator);
+        return paragraphList;
+    }
+    /**
+     * To sort paragraph by comparator.
+     *
+     * @param paragraph -paragraph to sort
+     * @param comparator -to compare by (should be ByNumberOfWordsInSentencesComparator)
+     */
+    public List<Sentence> sortSentences(Paragraph paragraph,Comparator<Component> comparator) throws IllegalComparatorException {
+        if (comparator == null) {
+              LOGGER.error(MessageConstants.COMPARATOR_IS_NULL);
+            throw new NullPointerException(MessageConstants.COMPARATOR_IS_NULL);
+        }
+        if (paragraph==null) {
+              LOGGER.error(MessageConstants.PARAGRAPH_IS_NULL);
+            throw new NullPointerException(MessageConstants.PARAGRAPH_IS_NULL);
+        }
+        if (!(comparator instanceof ByNumberOfWordsInSentencesComparator)){
+            LOGGER.error(MessageConstants.ILLEGAL_COMPARATOR);
+            throw new IllegalComparatorException(MessageConstants.ILLEGAL_COMPARATOR);
+        }
+        List<Component> componentList=paragraph.getComponents();
+        List<Sentence> sentenceList=new ArrayList<>();
+        for (Component c:componentList){
+            Sentence s=new Sentence(c.toString(),TypeComposite.SENTENCE);
+            sentenceList.add(s);
+        }
+        sentenceList.sort(comparator);
+        return sentenceList;
+    }
+    /**
+     * To sort sentence by comparator.
+     *
+     * @param sentence -sentence to sort
+     * @param comparator -to compare by (should be ByLengthOfWordsInSentenceComparator)
+     */
+
+    public List<Word> sortWords(Sentence sentence,Comparator<Component> comparator) throws IllegalComparatorException {
+        if (comparator == null) {
+                LOGGER.error(MessageConstants.COMPARATOR_IS_NULL);
+            throw new NullPointerException(MessageConstants.COMPARATOR_IS_NULL);
+        }
+        if (sentence==null) {
+             LOGGER.error(MessageConstants.SENTENCE_IS_NULL);
+            throw new NullPointerException(MessageConstants.SENTENCE_IS_NULL);
+        }
+        if (!(comparator instanceof ByLengthOfWordsInSentenceComparator)){
+             LOGGER.error(MessageConstants.ILLEGAL_COMPARATOR);
+            throw new IllegalComparatorException(MessageConstants.ILLEGAL_COMPARATOR);
+        }
+        List<Component> componentList=sentence.getComponents();
+        List<Word> wordList=new ArrayList<>();
+        for (Component c:componentList){
+            Word word=new Word(c.toString(),TypeComposite.WORD);
+            wordList.add(word);
+        }
+        wordList.sort(comparator);
+        return wordList;
+    }
+}

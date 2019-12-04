@@ -1,0 +1,10 @@
+package by.epam.learn.daryatarasevich.text.entity;
+
+public interface Component<T> {
+    Component<T> add(Component<T> component);
+    boolean remove(Component<T> component);
+    Component<T> get(int childIndex);
+    int count();
+    public TypeComposite getType();
+    public String toString();
+}

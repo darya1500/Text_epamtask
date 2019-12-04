@@ -1,0 +1,83 @@
+package by.epam.learn.daryatarasevich.text.entity;
+
+import by.epam.learn.daryatarasevich.text.constant.MessageConstants;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import java.util.*;
+
+public class Composite<T> implements Component<T>{
+    private static final Logger LOGGER = LogManager.getLogger(Composite.class);
+    private List<Component<T>> components = new ArrayList<>();
+    private TypeComposite type;
+    private List<Component> list;
+    private String value;
+
+    public Composite() {
+    }
+
+    public Composite(List<Component> list, TypeComposite type) {
+        this.type = type;
+        this.list=list;
+    }
+
+    public Composite(String value, TypeComposite type) {
+        this.value=value;
+        this.type=type;
+    }
+
+    public TypeComposite getType() {
+        return type;
+    }
+
+    public Component<T> add(Component<T> component) {
+        components.add(component);
+        return this;
+    }
+
+    public boolean remove(Component<T> component) {
+        return components.remove(component);
+    }
+
+    public Component<T> get(int index) {
+        return components.get(index);
+    }
+
+    public int count() {
+        return components.size();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+          for (Component component : list) {
+            switch (component.getType()) {
+                case TEXT:
+                 component.toString();
+                 break;
+                case PARAGRAPH:
+                    if (list.indexOf(component) != list.size()-1) {
+                        stringBuilder.append("    ".concat(component.toString().concat("\n")));
+                    } else {
+                        stringBuilder.append("    ".concat(component.toString()));
+                    }
+                    break;
+                case SENTENCE:
+                    stringBuilder.append(component.toString()+".");
+                    break;
+                case LEXEMA:
+                    stringBuilder.append(component.toString().concat(" "));
+                    break;
+                case WORD:
+                    stringBuilder.append(component.toString());
+                    break;
+                case SYMBOL:
+                    Symbol symbol=(Symbol) component;
+                    stringBuilder.append(symbol.getValue());
+                    break;
+                default:
+                    LOGGER.error(MessageConstants.ILLEGAL_COMPONENT);
+            }
+        }
+        return stringBuilder.toString();
+    }
+}

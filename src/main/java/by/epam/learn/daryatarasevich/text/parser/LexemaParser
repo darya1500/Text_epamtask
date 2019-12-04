@@ -1,0 +1,53 @@
+package by.epam.learn.daryatarasevich.text.parser;
+
+import by.epam.learn.daryatarasevich.text.constant.MessageConstants;
+import by.epam.learn.daryatarasevich.text.entity.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import java.util.ArrayList;
+import java.util.List;
+
+public class LexemaParser extends SentenceParser {
+    private final String CONSTANT = "[\\s]";
+    private static final LexemaParser INSTANCE=new LexemaParser();
+    private Parser nextParser=WordParser.getInstance();
+    public static  List<Component> list;
+    private static final Logger LOGGER = LogManager.getLogger(LexemaParser.class);
+
+    public LexemaParser() {
+    }
+
+    public static LexemaParser getInstance(){
+        return INSTANCE;
+    }
+    /**
+     * To parse string to the list of components.
+     * String is parsed to String[] listOfLexema by splitting via regex=CONSTANT.
+     * If nextParser is present new composite is created via (nextParser.parse(s),TypeComposite.LEXEMA)
+     * constructor, if nextParser is absent new composite is created via (s,TypeComposite.LEXEMA) constructor.
+     *All composites are added to the list of components.
+     *
+     * @param string -string to parse
+     * @return list - list of all created components
+     */
+    @Override
+    public List<Component> parse(String string) {
+        if (string == null) {
+              LOGGER.error(MessageConstants.STRING_IS_NULL);
+            throw new NullPointerException(MessageConstants.STRING_IS_NULL);
+        }
+        List<Component> list=new ArrayList<>();
+        String[] listOfLexema=string.split(CONSTANT);
+        Component component;
+        for (String s:listOfLexema){
+            if(!s.equals("")){
+            if (nextParser!=null){
+                component=new Composite(nextParser.parse(s),TypeComposite.LEXEMA);
+            }else {
+                component=new Composite(s,TypeComposite.LEXEMA);
+            }
+                list.add(component);
+        }}
+        return list;
+    }
+}

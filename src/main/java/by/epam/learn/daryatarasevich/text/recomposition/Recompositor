@@ -1,0 +1,9 @@
+package by.epam.learn.daryatarasevich.text.recomposition;
+
+import by.epam.learn.daryatarasevich.text.entity.Component;
+import java.util.List;
+
+public interface Recompositor {
+
+    public String  recomposite(List<Component> list);
+}

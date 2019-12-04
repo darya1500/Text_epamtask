@@ -1,0 +1,9 @@
+package by.epam.learn.daryatarasevich.text.exception;
+
+public class IncorrectFilePathException extends Exception{
+
+    public IncorrectFilePathException(String message) {
+        super(message);
+    }
+}
+

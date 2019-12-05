@@ -1,0 +1,31 @@
+package by.epam.learn.daryatarasevich.text.parser;
+
+import by.epam.learn.daryatarasevich.text.entity.*;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+import java.util.ArrayList;
+import java.util.List;
+import static org.testng.Assert.*;
+
+public class WordParserTest {
+    private WordParser wordParser;
+    private String string;
+    private List<Component> expectedList;
+
+    @BeforeMethod
+    public void setUp() {
+        wordParser=WordParser.getInstance();
+        string="hello*";
+        expectedList=new ArrayList<>();
+        expectedList.add(new Word("hello", TypeComposite.WORD));
+        expectedList.add(new Symbol("*",TypeComposite.SYMBOL));
+    }
+
+    @Test
+    public void testParse_WhenDataIsCorrect_ShouldReturnCorrectResult() {
+        List<Component> list=wordParser.parse(string);
+        for (int i=0;i<expectedList.size();i++){
+            assertEquals(list.get(i).toString(),expectedList.get(i).toString());
+        }
+    }
+}

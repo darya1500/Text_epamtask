@@ -1,0 +1,31 @@
+package by.epam.learn.daryatarasevich.text.parser;
+
+import by.epam.learn.daryatarasevich.text.entity.Component;
+import by.epam.learn.daryatarasevich.text.entity.Lexema;
+import by.epam.learn.daryatarasevich.text.entity.TypeComposite;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+import java.util.ArrayList;
+import java.util.List;
+import static org.testng.Assert.*;
+
+public class LexemaParserTest {
+    private LexemaParser lexemaParser;
+    private String string;
+
+    @BeforeMethod
+    public void setUp() {
+        lexemaParser=LexemaParser.getInstance();
+        string="hello ";
+    }
+
+    @Test
+    public void testParse_WhenDataIsCorrect_ShouldReturnCorrectResult() {
+        List<Component> expectedList=new ArrayList<>();
+        Lexema lexema=new Lexema("hello", TypeComposite.LEXEMA);
+        expectedList.add(lexema);
+        for (int i=0;i<expectedList.size();i++){
+            assertEquals(lexemaParser.parse(string).get(i).toString(),expectedList.get(i).toString());
+        }
+    }
+}

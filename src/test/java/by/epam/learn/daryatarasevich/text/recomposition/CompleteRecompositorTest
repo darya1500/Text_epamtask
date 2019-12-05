@@ -1,0 +1,41 @@
+package by.epam.learn.daryatarasevich.text.recomposition;
+
+import by.epam.learn.daryatarasevich.text.entity.*;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+import java.util.ArrayList;
+import java.util.List;
+import static org.testng.Assert.*;
+
+public class CompleteRecompositorTest {
+    private CompleteRecompositor completeRecompositor;
+    private String expected;
+    private List<Component> list;
+
+    @BeforeMethod
+    public void setUp() {
+        completeRecompositor=new CompleteRecompositor();
+        list=new ArrayList<>();
+    }
+
+    @Test
+    public void testRecomposite_WhenDataIsCorrect_ShouldReturnCorrectResult_TestingText() {
+        expected="hi everyone.hi";
+        list.add(new Text("hi everyone.hi", TypeComposite.TEXT));
+        assertEquals(completeRecompositor.recomposite(list),expected);
+    }
+
+    @Test
+    public void testRecomposite_WhenDataIsCorrect_ShouldReturnCorrectResult_TestingWord() {
+        expected="wow";
+        list.add(new Word("wow", TypeComposite.WORD));
+        assertEquals(completeRecompositor.recomposite(list),expected);
+    }
+
+    @Test
+    public void testRecomposite_WhenDataIsCorrect_ShouldReturnCorrectResult_TestingParagraph() {
+        expected="    It is a established fact that a reader will be of a page when looking at its layout.";
+        list.add(new Paragraph("It is a established fact that a reader will be of a page when looking at its layout.", TypeComposite.PARAGRAPH));
+        assertEquals(completeRecompositor.recomposite(list),expected);
+    }
+}

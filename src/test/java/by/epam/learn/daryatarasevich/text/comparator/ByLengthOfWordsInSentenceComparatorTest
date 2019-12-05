@@ -1,0 +1,27 @@
+package by.epam.learn.daryatarasevich.text.comparator;
+
+import by.epam.learn.daryatarasevich.text.entity.Symbol;
+import by.epam.learn.daryatarasevich.text.entity.TypeComposite;
+import by.epam.learn.daryatarasevich.text.entity.Word;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+import static org.testng.Assert.*;
+
+public class ByLengthOfWordsInSentenceComparatorTest {
+    private Word wordOne;
+    private Word wordTwo;
+
+    @BeforeMethod
+    public void setUp() {
+        wordOne=new Word("hi", TypeComposite.WORD);
+        wordOne.add(new Symbol("1",TypeComposite.SYMBOL));
+        wordTwo=new Word("hi",TypeComposite.WORD);
+        wordTwo.add(new Symbol("2",TypeComposite.SYMBOL));
+    }
+    @Test
+    public void testCompare_WhenDataIsCorrect_ShouldReturnCorrectResult() {
+        ByLengthOfWordsInSentenceComparator byLengthOfWordsInSentenceComparator=new ByLengthOfWordsInSentenceComparator();
+        int expected=0;
+        assertEquals(byLengthOfWordsInSentenceComparator.compare(wordOne,wordTwo),expected);
+    }
+}

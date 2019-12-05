@@ -1,0 +1,28 @@
+package by.epam.learn.daryatarasevich.text.comparator;
+
+import by.epam.learn.daryatarasevich.text.entity.Paragraph;
+import by.epam.learn.daryatarasevich.text.entity.Sentence;
+import by.epam.learn.daryatarasevich.text.entity.TypeComposite;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+import static org.testng.Assert.*;
+
+public class ByNumberOFSentencesComparatorTest {
+    private Paragraph paragraphOne;
+    private Paragraph paragraphTwo;
+
+    @BeforeMethod
+    public void setUp() {
+        paragraphOne=new Paragraph("h.e.l.l.o.", TypeComposite.PARAGRAPH);
+        paragraphOne.add(new Sentence("1",TypeComposite.SENTENCE));
+        paragraphTwo=new Paragraph("h.e.l.l.o.", TypeComposite.PARAGRAPH);
+        paragraphTwo.add(new Sentence("1",TypeComposite.SENTENCE));
+    }
+
+    @Test
+    public void testCompare_WhenDataIsCorrect_ShouldReturnCorrectResult() {
+        ByNumberOFSentencesComparator byNumberOFSentencesComparator=new ByNumberOFSentencesComparator();
+        int expected=0;
+        assertEquals(byNumberOFSentencesComparator.compare(paragraphOne,paragraphTwo),expected);
+    }
+}

@@ -1,6 +1,6 @@
 # Text
 
-Cоздать приложение, разбирающее текст из файла и позволяющее выполнять с текстом три различных операции.
+Cоздать приложение, разбирающее [текст из файла](https://github.com/darya1500/epamtc/tree/master/src/main/java/by/epam/learn/daryatarasevich/text/reader) и позволяющее выполнять с текстом три различных операции.
 
 ### Требования
 + Разобранный [текст](https://github.com/darya1500/epamtc/blob/master/src/main/java/by/epam/learn/daryatarasevich/text/entity/Text) должен быть представлен в виде объекта, содержащего, например, [абзацы](https://github.com/darya1500/epamtc/blob/master/src/main/java/by/epam/learn/daryatarasevich/text/entity/Paragraph), [предложения](https://github.com/darya1500/epamtc/blob/master/src/main/java/by/epam/learn/daryatarasevich/text/entity/Sentence), [лексемы](https://github.com/darya1500/epamtc/blob/master/src/main/java/by/epam/learn/daryatarasevich/text/entity/Lexema), [слова](https://github.com/darya1500/epamtc/blob/master/src/main/java/by/epam/learn/daryatarasevich/text/entity/Word), 

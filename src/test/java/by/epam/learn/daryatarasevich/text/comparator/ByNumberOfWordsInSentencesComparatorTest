@@ -1,0 +1,28 @@
+package by.epam.learn.daryatarasevich.text.comparator;
+
+import by.epam.learn.daryatarasevich.text.entity.Lexema;
+import by.epam.learn.daryatarasevich.text.entity.Sentence;
+import by.epam.learn.daryatarasevich.text.entity.TypeComposite;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+import static org.testng.Assert.*;
+
+public class ByNumberOfWordsInSentencesComparatorTest {
+    private Sentence sentenceOne;
+    private Sentence sentenceTwo;
+
+    @BeforeMethod
+    public void setUp() {
+        sentenceOne=new Sentence("s", TypeComposite.SENTENCE);
+        sentenceOne.add(new Lexema("l",TypeComposite.LEXEMA));
+        sentenceTwo=new Sentence("s", TypeComposite.SENTENCE);
+        sentenceTwo.add(new Lexema("l",TypeComposite.LEXEMA));
+    }
+
+    @Test
+    public void testCompare() {
+        ByNumberOfWordsInSentencesComparator byNumberOfWordsInSentencesComparator=new ByNumberOfWordsInSentencesComparator();
+        int expected=0;
+        assertEquals(byNumberOfWordsInSentencesComparator.compare(sentenceOne,sentenceTwo),expected);
+    }
+}
